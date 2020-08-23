@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "22705648360",
+    "firebase_url": "https://clarifyns.firebaseio.com",
+    "project_id": "clarifyns",
+    "storage_bucket": "clarifyns.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:22705648360:android:46f0e5758e2958347f8f5d",
+        "android_client_info": {
+          "package_name": "ca.wellwarriors.clarify_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "22705648360-odhs0biek7dlgll1hotpjjs1jfmudlb9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.wellwarriors.clarify_android",
+            "certificate_hash": "bf3875af5e0ee8ddbf7556b69a5036558c4baa57"
+          }
+        },
+        {
+          "client_id": "22705648360-j4gu6lmarmqh0lt3p5j99lmj905mvveg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3HYnqQoiMRPJpGgw0mGMAUyk4XvUupnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "22705648360-j4gu6lmarmqh0lt3p5j99lmj905mvveg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
