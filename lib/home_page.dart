@@ -3,6 +3,7 @@ import 'package:clarify_flutter/test_history_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:clarify_flutter/sign_in.dart';
+import 'package:clarify_flutter/test_creation_page.dart';
 
 // TODO: Re-jiggle the page hierarchy for better login flow.
 // if the user is signed-out when they launch the app it should be in this \
@@ -57,10 +58,13 @@ class HomePage extends StatelessWidget {
                         return TestHistoryPage();
                       }))),
               SizedBox(height: 40),
-              clarifyRaisedButton("Button 2", () => print("Button 2 pressed.")),
-              SizedBox(height: 40),
-              clarifyRaisedButton("Logout", () => signOutGoogle()),
-              SizedBox(height: 40),
+              // TODO: This is for demo use, and should be removed.
+              clarifyRaisedButton(
+                  "Add a Report",
+                  () => Navigator.of(context)
+                          .push(new MaterialPageRoute(builder: (context) {
+                        return TestCreationPage();
+                      }))),
             ],
           ),
         ),

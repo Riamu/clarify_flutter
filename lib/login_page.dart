@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: 50),
               googleSignInButton(() {
-                signInWithGoogle().then((success) => {
+                signInToClarify().then((success) => {
                       if (success)
                         {
                           Navigator.of(context)

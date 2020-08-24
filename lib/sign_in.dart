@@ -9,40 +9,45 @@ String firstName;
 String lastName;
 String email;
 String imageUrl;
+String userID;
 
 // TODO: Provide other login options.
-Future<bool> signInWithGoogle() async {
+Future<bool> signInToClarify() async {
   try {
-    GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-    GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount.authentication;
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken,
-    );
-    final AuthResult authResult = await _auth.signInWithCredential(credential);
+    UserCredential userCredential = await signInWithGoogle();
+    User user = userCredential.user;
 
-    final FirebaseUser user = authResult.user;
-    assert(!user.isAnonymous);
-    assert(await user.getIdToken() != null);
-    assert(user.email != null);
     assert(user.displayName != null);
-    assert(user.photoUrl != null);
-
     name = user.displayName;
+    // TODO: This name splitting is very brittle. Fix it.
     var firstLast = name.split(" ");
     firstName = firstLast[0];
     lastName = firstLast[1];
+    assert(user.email != null);
     email = user.email;
-    imageUrl = user.photoUrl;
+    assert(user.photoURL != null);
+    imageUrl = user.photoURL;
+    assert(user.uid != null);
+    userID = user.uid;
 
-    final FirebaseUser currentUser = await _auth.currentUser();
-    assert(user.uid == currentUser.uid);
     return true;
   } catch (e) {
+    print(e);
     // If anything goes wrong we just return false
     return false;
   }
+}
+
+Future<UserCredential> signInWithGoogle() async {
+  final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+  final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+  final GoogleAuthCredential credential = GoogleAuthProvider.credential(
+    accessToken: googleAuth.accessToken,
+    idToken: googleAuth.idToken,
+  );
+
+  return await FirebaseAuth.instance.signInWithCredential(credential);
 }
 
 void signOutGoogle() async {
