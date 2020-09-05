@@ -39,9 +39,9 @@ class TestCreationPage extends StatelessWidget {
 
     WaterReport report = new WaterReport(
         id: "NULL", // ID will get generated, not written so we're good.
-        arsenic: Random.secure().nextInt(10),
-        lead: Random.secure().nextInt(10),
-        bacteria: Random.secure().nextInt(10),
+        arsenic: Random.secure().nextDouble() * (0.01 + 0.005),
+        lead: Random.secure().nextDouble() * (0.005 + 0.001),
+        bacteria: Random.secure().nextDouble() * (1.0 + 0.5),
         overallStatus: Random.secure().nextInt(3),
         timestamp: Timestamp.fromMillisecondsSinceEpoch(randomTime));
     FirebaseFirestore.instance
