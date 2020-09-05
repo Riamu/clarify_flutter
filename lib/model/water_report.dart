@@ -1,12 +1,13 @@
+import 'package:clarify_flutter/model/contaminant_report.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class WaterReport {
   final String id;
   final Timestamp timestamp;
-  final int arsenic;
-  final int lead;
-  final int bacteria;
+  final double arsenic;
+  final double lead;
+  final double bacteria;
   final int overallStatus;
   static List<String> months = [
     "January",
@@ -53,7 +54,8 @@ class WaterReport {
 
   String getFormattedDate() {
     String month = months[timestamp.toDate().month - 1];
-    return month + " " + timestamp.toDate().year.toString();
+    String day = timestamp.toDate().day.toString();
+    return month + " " + day + ", " + timestamp.toDate().year.toString();
   }
 
   String getOverallStatusString() {
@@ -92,5 +94,35 @@ class WaterReport {
       "lead_content": lead,
       "overall_status": overallStatus,
     };
+  }
+
+  ContaminantReport getArsenicReport() {
+    return ContaminantReport(
+        name: "Arsenic",
+        unitAbbreviation: "mg/L",
+        concentration: arsenic,
+        // 0.01 mg/L
+        upperBound: 0.01,
+        lowerBound: 0.0);
+  }
+
+  ContaminantReport getLeadReport() {
+    return ContaminantReport(
+        name: "Lead",
+        unitAbbreviation: "mg/L",
+        concentration: lead,
+        // 0.005 mg/L
+        upperBound: 0.005,
+        lowerBound: 0.0);
+  }
+
+  ContaminantReport getBacteriaReport() {
+    return ContaminantReport(
+        name: "Bacteria",
+        unitAbbreviation: "CFU/100mL",
+        concentration: bacteria,
+        // 1 CFU / 100 mL
+        upperBound: 1.0,
+        lowerBound: 0.0);
   }
 }

@@ -1,9 +1,11 @@
 import 'package:clarify_flutter/clarify_ui.dart';
 import 'package:clarify_flutter/test_history_page.dart';
+import 'package:clarify_flutter/todo_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:clarify_flutter/sign_in.dart';
 import 'package:clarify_flutter/test_creation_page.dart';
+import 'package:clarify_flutter/loading_page.dart';
 
 // TODO: Re-jiggle the page hierarchy for better login flow.
 // if the user is signed-out when they launch the app it should be in this \
@@ -15,6 +17,7 @@ import 'package:clarify_flutter/test_creation_page.dart';
 // The signOut function should push the welcome and SignIn pages back to the
 // navigation stack.
 class HomePage extends StatelessWidget {
+  static const double spacing_height = 30;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,19 +27,22 @@ class HomePage extends StatelessWidget {
             UserAccountsDrawerHeader(
               accountName: Text(name),
               accountEmail: Text(email),
-              onDetailsPressed: () => print("Details!"),
               currentAccountPicture: CircleAvatar(
                 backgroundImage: NetworkImage(imageUrl),
                 backgroundColor: Colors.transparent,
               ),
             ),
             ListTile(
-              title: Text('Item 1'),
+              title: Text('Manage Subscriptions'),
               trailing: Icon(Icons.arrow_forward),
+              onTap: () => Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => TodoPage())),
             ),
             ListTile(
-              title: Text('Item 2'),
+              title: Text('Admin Console'),
               trailing: Icon(Icons.arrow_forward),
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => TestCreationPage())),
             ),
           ],
         ),
@@ -50,21 +56,24 @@ class HomePage extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
             children: <Widget>[
-              SizedBox(height: 40),
+              SizedBox(height: spacing_height),
+              // Profile Page button
+              clarifyRaisedButton(
+                  "My Profile",
+                  // TODO: Navigate to a profile page.
+                  () => Navigator.of(context)
+                          .push(new MaterialPageRoute(builder: (context) {
+                        return TodoPage();
+                      }))),
+              SizedBox(height: spacing_height),
+              // Test Results button
               clarifyRaisedButton(
                   "Test Results",
                   () => Navigator.of(context)
                           .push(new MaterialPageRoute(builder: (context) {
                         return TestHistoryPage();
                       }))),
-              SizedBox(height: 40),
-              // TODO: This is for demo use, and should be removed.
-              clarifyRaisedButton(
-                  "Add a Report",
-                  () => Navigator.of(context)
-                          .push(new MaterialPageRoute(builder: (context) {
-                        return TestCreationPage();
-                      }))),
+              SizedBox(height: spacing_height),
             ],
           ),
         ),

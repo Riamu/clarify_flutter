@@ -1,6 +1,9 @@
 import 'package:clarify_flutter/clarify_colors.dart';
+import 'package:clarify_flutter/loading_page.dart';
 import 'package:clarify_flutter/model/water_report.dart';
 import 'package:clarify_flutter/sign_in.dart';
+import 'package:clarify_flutter/test_detail_page.dart';
+import 'package:clarify_flutter/todo_page.dart';
 import 'package:flutter/material.dart';
 import 'package:clarify_flutter/clarify_ui.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -29,7 +32,7 @@ class TestHistoryPage extends StatelessWidget {
 
   Widget buildReportList(
       BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-    if (snapshot.hasData) {
+    if (snapshot.hasData && snapshot.data.docs.length > 0) {
       return ListView.separated(
           separatorBuilder: getListSeparator,
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -37,52 +40,78 @@ class TestHistoryPage extends StatelessWidget {
           itemBuilder: (context, index) {
             WaterReport report = WaterReport.fromMap(
                 snapshot.data.docs[index].data(), snapshot.data.docs[index].id);
-            return getListItemForWaterReport(report);
+            return getListItemForWaterReport(report, context);
           });
-    } else if (snapshot.connectionState == ConnectionState.done &&
-        !snapshot.hasData) {
-      // No data found.
-      return CircularProgressIndicator();
-    } else {
-      return CircularProgressIndicator();
+    } else if (snapshot.hasData) {
+      return Container(
+          decoration: clarifyGradientBox(),
+          child: Center(
+            child: Column(
+              children: [
+                SizedBox(height: 10),
+                Text(
+                  "No test history found.",
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 230, 10, 0),
+                    fontFamily: 'Century-Gothic',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 30),
+                // TODO: Bring the user to the subscription page.
+                clarifyRaisedButton("Subscribe to Testing", () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return TodoPage();
+                  }));
+                }),
+              ],
+            ),
+          ));
     }
+    return LoadingPage(showAppBar: false);
+  }
+
+  Widget getListItemForWaterReport(WaterReport report, BuildContext context) {
+    return RaisedButton(
+      onPressed: () => {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return TestDetailPage(waterReport: report);
+        }))
+      },
+      splashColor: ClarifyColors.clarifySecondary,
+      color: ClarifyColors.clarifyTertiary,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+        child: Column(
+          children: [
+            Text(
+              report.getFormattedDate(),
+              style: TextStyle(
+                  fontFamily: 'Century-Gothic',
+                  fontSize: 20,
+                  color: ClarifyColors.clarifyPrimary[900],
+                  fontWeight: FontWeight.bold),
+            ),
+            Text(
+              report.getOverallStatusString(),
+              style: TextStyle(
+                color: report.getStatusColor(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
 Widget getListSeparator(BuildContext context, int position) {
   return SizedBox(
     height: 10,
-  );
-}
-
-Widget getListItemForWaterReport(WaterReport report) {
-  return RaisedButton(
-    onPressed: () => print(report),
-    splashColor: ClarifyColors.clarifySecondary,
-    color: ClarifyColors.clarifyTertiary,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(10),
-    ),
-    child: Padding(
-      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-      child: Column(
-        children: [
-          Text(
-            report.getFormattedDate(),
-            style: TextStyle(
-                fontFamily: 'Century-Gothic',
-                fontSize: 20,
-                color: ClarifyColors.clarifyPrimary[900],
-                fontWeight: FontWeight.bold),
-          ),
-          Text(
-            report.getOverallStatusString(),
-            style: TextStyle(
-              color: report.getStatusColor(),
-            ),
-          ),
-        ],
-      ),
-    ),
   );
 }
