@@ -1,7 +1,7 @@
-import 'package:clarify_flutter/clarify_ui.dart';
+import 'package:clarify_flutter/shared_components/clarify_ui.dart';
 import 'package:clarify_flutter/sign_in.dart';
 import 'package:flutter/material.dart';
-import 'package:clarify_flutter/clarify_colors.dart';
+import 'package:clarify_flutter/shared_components/clarify_colors.dart';
 import 'package:clarify_flutter/landing_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,7 +14,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: clarifyGradientBox(),
+        decoration: clarifyBackgroundDecoration(),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.max,

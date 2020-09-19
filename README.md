@@ -1,3 +1,4 @@
 # clarify_flutter
 
-// TODO: Write the README :)
+Clarify NS is a well water testing platform designed to make testing and understanding your well
+quality simple.

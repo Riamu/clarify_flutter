@@ -1,11 +1,11 @@
-import 'package:clarify_flutter/clarify_colors.dart';
+import 'package:clarify_flutter/shared_components/clarify_colors.dart';
 import 'package:clarify_flutter/loading_page.dart';
 import 'package:clarify_flutter/model/water_report.dart';
 import 'package:clarify_flutter/sign_in.dart';
 import 'package:clarify_flutter/test_detail_page.dart';
-import 'package:clarify_flutter/todo_page.dart';
+import 'package:clarify_flutter/shared_components/todo_page.dart';
 import 'package:flutter/material.dart';
-import 'package:clarify_flutter/clarify_ui.dart';
+import 'package:clarify_flutter/shared_components/clarify_ui.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TestHistoryPage extends StatelessWidget {
@@ -14,9 +14,10 @@ class TestHistoryPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your Test Results'),
+        backgroundColor: ClarifyColors.clarifyAppBarColor,
       ),
       body: Container(
-        decoration: clarifyGradientBox(),
+        decoration: clarifyBackgroundDecoration(),
         child: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection('users')
@@ -44,7 +45,7 @@ class TestHistoryPage extends StatelessWidget {
           });
     } else if (snapshot.hasData) {
       return Container(
-          decoration: clarifyGradientBox(),
+          decoration: clarifyBackgroundDecoration(),
           child: Center(
             child: Column(
               children: [
@@ -75,43 +76,51 @@ class TestHistoryPage extends StatelessWidget {
 
   Widget getListItemForWaterReport(WaterReport report, BuildContext context) {
     return RaisedButton(
-      onPressed: () => {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return TestDetailPage(waterReport: report);
-        }))
-      },
-      splashColor: ClarifyColors.clarifySecondary,
-      color: ClarifyColors.clarifyTertiary,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-        child: Column(
-          children: [
-            Text(
-              report.getFormattedDate(),
-              style: TextStyle(
-                  fontFamily: 'Century-Gothic',
-                  fontSize: 20,
-                  color: ClarifyColors.clarifyPrimary[900],
-                  fontWeight: FontWeight.bold),
-            ),
-            Text(
-              report.getOverallStatusString(),
-              style: TextStyle(
-                color: report.getStatusColor(),
-              ),
-            ),
-          ],
+        onPressed: () => {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return TestDetailPage(waterReport: report);
+              }))
+            },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
         ),
-      ),
-    );
+        padding: const EdgeInsets.all(0.0),
+        child: Ink(
+          decoration: clarifyButtonDecoration(),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      report.getFormattedDate(),
+                      style: TextStyle(
+                          fontFamily: 'Avant-Garde-Gothic',
+                          fontSize: 25,
+                          color: ClarifyColors.clarifyPrimary[900],
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      report.getOverallStatusString(),
+                      style: TextStyle(
+                        fontFamily: 'Century-Gothic',
+                        color: report.getStatusColor(),
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ));
   }
 }
 
 Widget getListSeparator(BuildContext context, int position) {
   return SizedBox(
-    height: 10,
+    height: 20.0,
   );
 }

@@ -1,4 +1,4 @@
-import 'package:clarify_flutter/clarify_ui.dart';
+import 'package:clarify_flutter/shared_components/clarify_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:clarify_flutter/sign_in.dart';
@@ -9,11 +9,11 @@ class LandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: clarifyGradientBox(),
+        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+        decoration: clarifyBackgroundDecoration(),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               CircleAvatar(
                 backgroundImage: NetworkImage(imageUrl),
@@ -30,7 +30,7 @@ class LandingPage extends StatelessWidget {
                 style: clarifyHeading(),
               ),
               SizedBox(height: 20),
-              clarifyRaisedButton('Continue', () {
+              clarifyBasicRaisedButton('Continue', () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
                   return HomePage();

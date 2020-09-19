@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:clarify_flutter/clarify_ui.dart';
+import 'package:clarify_flutter/shared_components/clarify_ui.dart';
 
 /// The purpose of this page is twofold:
 ///   1. Provide a placeholder page for unimplemented pages.
@@ -10,7 +10,7 @@ class TodoPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(title: const Text("TODO: Create this page")),
         body: Container(
-          decoration: clarifyGradientBox(),
+          decoration: clarifyBackgroundDecoration(),
           child: Center(
             child: CircularProgressIndicator(),
           ),

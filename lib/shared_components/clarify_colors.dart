@@ -19,6 +19,8 @@ class ClarifyColors {
   static const Color _clarifyEarth = Color(0xFF8C673A);
   static MaterialColor clarifyEarth = createMaterialColor(_clarifyEarth);
 
+  static Color clarifyAppBarColor = clarifyPrimary[200];
+
   // Function that createsa material color from a given hex code.
   static MaterialColor createMaterialColor(Color color) {
     List strengths = <double>[.05];

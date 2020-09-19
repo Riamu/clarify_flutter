@@ -1,11 +1,13 @@
-import 'package:clarify_flutter/clarify_ui.dart';
-import 'package:clarify_flutter/test_history_page.dart';
-import 'package:clarify_flutter/todo_page.dart';
+import 'package:clarify_flutter/custom_widgets/subscription_button.dart';
+import 'package:clarify_flutter/learning_page.dart';
+import 'package:clarify_flutter/shared_components/clarify_colors.dart';
+import 'package:clarify_flutter/shared_components/clarify_ui.dart';
+import 'package:clarify_flutter/custom_widgets/test_history_button.dart';
+import 'package:clarify_flutter/shared_components/todo_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:clarify_flutter/sign_in.dart';
-import 'package:clarify_flutter/test_creation_page.dart';
-import 'package:clarify_flutter/loading_page.dart';
+import 'package:clarify_flutter/admin_view/test_creation_page.dart';
 
 // TODO: Re-jiggle the page hierarchy for better login flow.
 // if the user is signed-out when they launch the app it should be in this \
@@ -18,6 +20,7 @@ import 'package:clarify_flutter/loading_page.dart';
 // navigation stack.
 class HomePage extends StatelessWidget {
   static const double spacing_height = 30;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +28,7 @@ class HomePage extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
+              decoration: clarifyBackgroundDecoration(),
               accountName: Text(name),
               accountEmail: Text(email),
               currentAccountPicture: CircleAvatar(
@@ -44,35 +48,45 @@ class HomePage extends StatelessWidget {
               onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => TestCreationPage())),
             ),
+            ListTile(
+                title: Text('Sign Out'),
+                trailing: Icon(Icons.exit_to_app),
+                onTap: () {
+                  signOutGoogle();
+                  Navigator.of(context).pop();
+                }),
           ],
         ),
       ),
       appBar: AppBar(
         title: const Text('Clarify'),
+        backgroundColor: ClarifyColors.clarifyAppBarColor,
       ),
       body: Container(
-        decoration: clarifyGradientBox(),
+        decoration: clarifyBackgroundDecoration(),
         child: Center(
           child: ListView(
             padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
             children: <Widget>[
               SizedBox(height: spacing_height),
-              // Profile Page button
-              clarifyRaisedButton(
-                  "My Profile",
-                  // TODO: Navigate to a profile page.
-                  () => Navigator.of(context)
-                          .push(new MaterialPageRoute(builder: (context) {
-                        return TodoPage();
-                      }))),
+              clarifyProfileButton(context),
               SizedBox(height: spacing_height),
               // Test Results button
+              TestHistoryButton(),
+              SizedBox(height: spacing_height),
               clarifyRaisedButton(
-                  "Test Results",
+                  "Learn",
                   () => Navigator.of(context)
                           .push(new MaterialPageRoute(builder: (context) {
-                        return TestHistoryPage();
-                      }))),
+                        return LearningPage();
+                      })),
+                  subtext: "Learn about risks to your water.",
+                  subtextColor: ClarifyColors.clarifySecondary[300]),
+              SizedBox(height: spacing_height),
+              SubscriptionButton(),
+              SizedBox(height: spacing_height),
+              clarifyBasicRaisedButton("Purchase a Test Kit", () {},
+                  icon: Icon(Icons.credit_card)),
               SizedBox(height: spacing_height),
             ],
           ),

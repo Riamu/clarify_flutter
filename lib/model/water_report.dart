@@ -66,7 +66,7 @@ class WaterReport {
       case 1:
         return "Water quality could be better.";
       case 2:
-        return "Your water requires immediate attention!";
+        return "Requires immediate attention!";
       default:
         return "Unknown water quality.";
     }
@@ -78,12 +78,13 @@ class WaterReport {
         return Colors.green;
         break;
       case 1:
-        return Colors.yellow;
+        return Colors.orange;
         break;
       case 2:
         return Colors.red;
         break;
     }
+    return Colors.black;
   }
 
   Map<String, dynamic> toMap() {

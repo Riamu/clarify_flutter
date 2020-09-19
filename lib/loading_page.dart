@@ -1,4 +1,4 @@
-import 'package:clarify_flutter/clarify_ui.dart';
+import 'package:clarify_flutter/shared_components/clarify_ui.dart';
 import 'package:flutter/material.dart';
 
 class LoadingPage extends StatelessWidget {
@@ -10,7 +10,7 @@ class LoadingPage extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(title: const Text('Loading...')),
         body: Container(
-          decoration: clarifyGradientBox(),
+          decoration: clarifyBackgroundDecoration(),
           // child: CircularProgressIndicator(),
           child: Center(
             child: CircularProgressIndicator(),
@@ -20,7 +20,7 @@ class LoadingPage extends StatelessWidget {
     } else {
       return Scaffold(
         body: Container(
-          decoration: clarifyGradientBox(),
+          decoration: clarifyBackgroundDecoration(),
           // child: CircularProgressIndicator(),
           child: Center(
             child: CircularProgressIndicator(),

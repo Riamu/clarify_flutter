@@ -1,11 +1,9 @@
 import 'dart:io';
 
-import 'package:clarify_flutter/clarify_colors.dart';
-import 'package:clarify_flutter/home_page.dart';
+import 'package:clarify_flutter/shared_components/clarify_colors.dart';
 import 'package:clarify_flutter/loading_page.dart';
 import 'package:clarify_flutter/login_page.dart';
 import 'package:flutter/material.dart';
-import 'package:clarify_flutter/sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() {
@@ -13,7 +11,7 @@ void main() {
 }
 
 class ClarifyNS extends StatelessWidget {
-  // This widget is the root of your application.
+  // This widget is the root of your application.-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(

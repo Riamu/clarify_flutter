@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:clarify_flutter/model/water_report.dart';
 import 'package:clarify_flutter/sign_in.dart';
 import 'package:flutter/material.dart';
-import 'package:clarify_flutter/clarify_ui.dart';
+import 'package:clarify_flutter/shared_components/clarify_ui.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TestCreationPage extends StatelessWidget {
@@ -14,7 +14,7 @@ class TestCreationPage extends StatelessWidget {
         title: const Text('DEBUG ONLY.'),
       ),
       body: Container(
-        decoration: clarifyGradientBox(),
+        decoration: clarifyBackgroundDecoration(),
         child: ListView(
           padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
           children: [

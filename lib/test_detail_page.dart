@@ -1,6 +1,7 @@
-import 'package:clarify_flutter/todo_page.dart';
+import 'package:clarify_flutter/custom_widgets/contaminant_page.dart';
+import 'package:clarify_flutter/shared_components/clarify_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:clarify_flutter/clarify_ui.dart';
+import 'package:clarify_flutter/shared_components/clarify_ui.dart';
 import 'package:clarify_flutter/model/water_report.dart';
 
 class TestDetailPage extends StatelessWidget {
@@ -10,36 +11,37 @@ class TestDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return LoadingPage();
     return Scaffold(
-        appBar: AppBar(title: Text(waterReport.getFormattedDate())),
+        appBar: AppBar(
+          title: Text(waterReport.getFormattedDate()),
+          backgroundColor: ClarifyColors.clarifyAppBarColor,
+        ),
         body: Container(
-          decoration: clarifyGradientBox(),
+          decoration: clarifyBackgroundDecoration(),
           child: ListView(
-            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+            padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
             children: [
-              SizedBox(height: 30),
               clarifyContaminantIndicator(waterReport.getArsenicReport(), () {
                 Navigator.of(context)
                     .push(new MaterialPageRoute(builder: (context) {
                   // Page to learn about arsenic.
-                  return TodoPage();
+                  return ContaminantPage('arsenic');
                 }));
               }),
-              SizedBox(height: 30),
+              SizedBox(height: 20),
               clarifyContaminantIndicator(waterReport.getBacteriaReport(), () {
                 Navigator.of(context)
                     .push(new MaterialPageRoute(builder: (context) {
                   // Page to learn about Bacteria.
-                  return TodoPage();
+                  return ContaminantPage('bacteria');
                 }));
               }),
-              SizedBox(height: 30),
+              SizedBox(height: 20),
               clarifyContaminantIndicator(waterReport.getLeadReport(), () {
                 Navigator.of(context)
                     .push(new MaterialPageRoute(builder: (context) {
                   // Page to learn about Lead.
-                  return TodoPage();
+                  return ContaminantPage('lead');
                 }));
               }),
             ],
